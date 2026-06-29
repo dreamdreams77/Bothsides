@@ -59,11 +59,18 @@
         
         .lyrics {
             font-size: 1.3em;
-            line-height: 2;
+            line-height: 2.5;
             color: var(--text);
             text-align: center;
             min-height: 350px;
             margin-bottom: 30px;
+            word-spacing: 0.1em;
+        }
+        
+        .lyrics br {
+            margin: 12px 0;
+            display: block;
+            content: "";
         }
         
         .word {
@@ -552,7 +559,7 @@
         const linerNotes = document.getElementById('linerNotes');
 
         function createLyricsHTML() {
-            let html = '<span class="section-title">Verse 1</span>';
+            let html = '<span class="section-title">Verse 1</span><br><br>';
             
             lyrics.forEach((word, index) => {
                 html += `<span class="word" data-index="${index}">${word.text}</span> `;
@@ -561,10 +568,10 @@
                     html += '<br>';
                 }
                 
-                if (index === 39) html += '<span class="section-title">Chorus 1</span>';
-                if (index === 87) html += '<span class="section-title">Verse 2</span>';
-                if (index === 147) html += '<span class="section-title">Bridge</span>';
-                if (index === 171) html += '<span class="section-title">Final Chorus</span>';
+                if (index === 39) html += '<br><br><span class="section-title">Chorus 1</span><br><br>';
+                if (index === 87) html += '<br><br><span class="section-title">Verse 2</span><br><br>';
+                if (index === 147) html += '<br><br><span class="section-title">Bridge</span><br><br>';
+                if (index === 171) html += '<br><br><span class="section-title">Final Chorus</span><br><br>';
             });
             
             lyricsDiv.innerHTML = html;
