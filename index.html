@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Both Sides of the Night - Original song written and produced by Laura Johnston">
+    <meta name="author" content="Laura Johnston">
+    <title>Both Sides of the Night</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --text: #333;
+            --muted: #666;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        header .meta {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        header .credit {
+            font-size: 1em;
+            opacity: 0.8;
+            font-style: italic;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .player-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        
+        .player-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        audio {
+            width: 100%;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .lyrics-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            min-height: 500px;
+        }
+        
+        .lyrics {
+            font-size: 1.4em;
+            line-height: 2.2;
+            color: var(--text);
+            text-align: center;
+        }
+        
+        .word {
+            display: inline;
+            margin: 0 0.1em;
+            transition: all 0.08s ease;
+        }
+        
+        .word.active {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.05em;
+            text-shadow: 0 0 8px rgba(231, 76, 60, 0.4);
+        }
+        
+        .section-title {
+            display: block;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 0.95em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .notes-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        
+        .notes-section h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 1.5em;
+        }
+        
+        .notes-section h3 {
+            color: var(--secondary);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.15em;
+        }
+        
+        .notes-section p {
+            color: var(--muted);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .notes-section table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        
+        .notes-section table th {
+            background: var(--light);
+            color: var(--primary);
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .notes-section table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .notes-section table tr:hover {
+            background: var(--light);
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        footer p {
+            opacity: 0.9;
+        }
+        
+        .control-hint {
+            text-align: center;
+            color: var(--muted);
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .lyrics {
+                font-size: 1.1em;
+                line-height: 1.8;
+            }
+            
+            .player-section, .lyrics-container, .notes-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Both Sides of the Night</h1>
+        <div class="meta">Duration: 4:10 – 4:30</div>
+        <div class="credit">Written and Produced by Laura Johnston</div>
+    </header>
+
+    <div class="container">
+        <div class="player-section">
+            <h2>🎵 Play & Sing Along</h2>
+            <audio id="audioPlayer" controls>
+                <source src="both-sides.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="control-hint">Press play to begin — lyrics will highlight as the song plays</div>
+        </div>
+
+        <div class="lyrics-container">
+            <div class="lyrics" id="lyrics"></div>
+        </div>
+
+        <div class="notes-section">
+            <h2>Production & Arrangement Notes</h2>
+            
+            <p><strong>Tempo:</strong> 72 BPM (flex to 74 BPM at Final Chorus)</p>
+            <p><strong>Key:</strong> D minor → D major (Final Chorus)</p>
+            <p><strong>Time Signature:</strong> 4/4 (6/8 feel in Bridge)</p>
+            
+            <h3>Section-by-Section Breakdown</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Timing</th>
+                        <th>Bars</th>
+                        <th>Dynamic</th>
+                        <th>Mood</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Intro</strong></td>
+                        <td>0:00 – 0:28</td>
+                        <td>8</td>
+                        <td>pp</td>
+                        <td>Liminal, half-asleep stillness</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Verse 1</strong></td>
+                        <td>0:28 – 1:00</td>
+                        <td>8</td>
+                        <td>p</td>
+                        <td>Confessional, searching</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pre-Chorus 1</strong></td>
+                        <td>1:00 – 1:16</td>
+                        <td>4</td>
+                        <td>mp</td>
+                        <td>Tension building, yearning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chorus 1</strong></td>
+                        <td>1:16 – 1:48</td>
+                        <td>8</td>
+                        <td>mf</td>
+                        <td>Emotional release, soaring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Post-Chorus</strong></td>
+                        <td>1:48 – 2:04</td>
+                        <td>4</td>
+                        <td>mp</td>
+                        <td>Reverb-drenched echo, settling</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Verse 2</strong></td>
+                        <td>2:04 – 2:36</td>
+                        <td>8</td>
+                        <td>p → mp</td>
+                        <td>Deeper revelation, more layered</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pre-Chorus 2</strong></td>
+                        <td>2:36 – 2:52</td>
+                        <td>4</td>
+                        <td>mp → mf</td>
+                        <td>Inevitable surge</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chorus 2</strong></td>
+                        <td>2:52 – 3:24</td>
+                        <td>8</td>
+                        <td>f</td>
+                        <td>Cathartic, communal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bridge</strong></td>
+                        <td>3:24 – 3:48</td>
+                        <td>6 (6/8)</td>
+                        <td>mp → p → ff</td>
+                        <td>Fracture point, emotional peak</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Final Chorus</strong></td>
+                        <td>3:48 – 4:20</td>
+                        <td>8</td>
+                        <td>ff → fff</td>
+                        <td>Transcendent release [D MAJOR]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Outro</strong></td>
+                        <td>4:20 – 4:28</td>
+                        <td>2</td>
+                        <td>ppp</td>
+                        <td>Dissolving, peaceful</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Key Production Elements</h3>
+            <p><strong>Intro:</strong> Glockenspiel plays descending 4-note motif (D–C–Bb–A), fingerpicked acoustic guitar, synth pad fades in slowly, faint ambient night sounds (crickets, soft wind), small room reverb (0.8s).</p>
+            
+            <p><strong>Verse 1:</strong> Upright bass fingerpicked dry, kick drum on beats 1 and 3 only with felt-mallet style, close intimate mix, no electric instruments.</p>
+            
+            <p><strong>Chorus:</strong> Full band enters together, grand piano replaces Rhodes, wide stereo spread with hall reverb (2.2s) and 20ms pre-delay on vocals, strings swell upward on resolution.</p>
+            
+            <p><strong>Bridge:</strong> Drops to solo cello for stark contrast, reversed guitar texture for dreamlike feel, plate reverb (3.0s) creates unmoored searching, final piano + string hit acts as emotional thunderclap before silence.</p>
+            
+            <p><strong>Final Chorus:</strong> Key shifts to D major, full orchestral swell, 2–3 dB louder via arrangement (not compression), BPM nudges to 74 BPM for emotional lift, hall reverb (2.5s) wider than Chorus 2.</p>
+            
+            <p><strong>Outro:</strong> Everything falls away except piano and glockenspiel, glockenspiel repeats intro motif, cathedral reverb (4.5s) lets notes dissolve, resolves to tonic D.</p>
+            
+            <h3>Reverb & Dynamics Map</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Reverb Type</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Intro/Verse</td>
+                        <td>Small room</td>
+                        <td>0.8s</td>
+                    </tr>
+                    <tr>
+                        <td>Chorus</td>
+                        <td>Hall + pre-delay</td>
+                        <td>2.2s</td>
+                    </tr>
+                    <tr>
+                        <td>Bridge</td>
+                        <td>Long plate</td>
+                        <td>3.0s</td>
+                    </tr>
+                    <tr>
+                        <td>Final Chorus</td>
+                        <td>Hall</td>
+                        <td>2.5s</td>
+                    </tr>
+                    <tr>
+                        <td>Outro</td>
+                        <td>Cathedral</td>
+                        <td>4.5s</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Mastering Specifications</h3>
+            <p><strong>Target LUFS:</strong> -14 LUFS integrated</p>
+            <p><strong>True Peak:</strong> -1 dBTP</p>
+            <p><strong>Dynamic Range:</strong> DR10 minimum (let the song breathe)</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Laura Johnston. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const lyrics = [
+            { time: 28.5, text: "Fear" },
+            { time: 29.2, text: "woke" },
+            { time: 29.8, text: "in" },
+            { time: 30.2, text: "the" },
+            { time: 30.5, text: "dark" },
+            { time: 31.1, text: "while" },
+            { time: 31.7, text: "rest" },
+            { time: 32.3, text: "came" },
+            { time: 32.8, text: "elsewhere," },
+            { time: 33.5, text: "A" },
+            { time: 34.0, text: "prompt" },
+            { time: 34.6, text: "that" },
+            { time: 35.1, text: "wouldn't" },
+            { time: 35.7, text: "loosen," },
+            { time: 36.3, text: "no" },
+            { time: 36.7, text: "matter" },
+            { time: 37.2, text: "what" },
+            { time: 37.6, text: "was" },
+            { time: 38.0, text: "felt." },
+            { time: 38.7, text: "Wide" },
+            { time: 39.2, text: "awake" },
+            { time: 39.8, text: "and" },
+            { time: 40.2, text: "breaking," },
+            { time: 40.8, text: "hearts" },
+            { time: 41.3, text: "reaching" },
+            { time: 41.9, text: "through" },
+            { time: 42.4, text: "the" },
+            { time: 42.8, text: "hours," },
+            { time: 43.4, text: "Crossing" },
+            { time: 44.0, text: "all" },
+            { time: 44.4, text: "the" },
+            { time: 44.8, text: "distance" },
+            { time: 45.3, text: "just" },
+            { time: 45.8, text: "to" },
+            { time: 46.2, text: "ask," },
+            { time: 46.7, text: "Are" },
+            { time: 47.1, text: "you" },
+            { time: 47.5, text: "still" },
+            { time: 47.9, text: "ours?" },
+            { time: 49.6, text: "Loving" },
+            { time: 50.3, text: "on" },
+            { time: 50.8, text: "the" },
+            { time: 51.1, text: "edges" },
+            { time: 51.6, text: "where" },
+            { time: 52.1, text: "the" },
+            { time: 52.5, text: "timezones" },
+            { time: 53.1, text: "collide," },
+            { time: 53.8, text: "Catching" },
+            { time: 54.3, text: "when" },
+            { time: 54.8, text: "we're" },
+            { time: 55.2, text: "falling," },
+            { time: 55.7, text: "lifelines" },
+            { time: 56.3, text: "in" },
+            { time: 56.7, text: "the" },
+            { time: 57.0, text: "night." },
+            { time: 57.7, text: "Neither" },
+            { time: 58.2, text: "one" },
+            { time: 58.6, text: "sleeping" },
+            { time: 59.2, text: "but" },
+            { time: 59.6, text: "holding" },
+            { time: 60.1, text: "on" },
+            { time: 60.5, text: "so" },
+            { time: 60.9, text: "tight—" },
+            { time: 61.6, text: "This" },
+            { time: 62.1, text: "is" },
+            { time: 62.5, text: "how" },
+            { time: 63.0, text: "love" },
+            { time: 63.5, text: "lives," },
+            { time: 64.1, text: "this" },
+            { time: 64.6, text: "is" },
+            { time: 65.0, text: "how" },
+            { time: 65.5, text: "love" },
+            { time: 66.0, text: "lives" },
+            { time: 66.6, text: "On" },
+            { time: 67.0, text: "both" },
+            { time: 67.5, text: "sides" },
+            { time: 68.0, text: "of" },
+            { time: 68.4, text: "the" },
+            { time: 68.8, text: "night." },
+            { time: 74.3, text: "Weight" },
+            { time: 75.0, text: "carried" },
+            { time: 75.6, text: "in" },
+            { time: 76.0, text: "silence" },
+            { time: 76.6, text: "while" },
+            { time: 77.1, text: "rest" },
+            { time: 77.7, text: "slipped" },
+            { time: 78.2, text: "away," },
+            { time: 78.9, text: "By" },
+            { time: 79.3, text: "morning" },
+            { time: 79.9, text: "there" },
+            { time: 80.4, text: "was" },
+            { time: 80.9, text: "laughter" },
+            { time: 81.5, text: "cutting" },
+            { time: 82.0, text: "through" },
+            { time: 82.5, text: "the" },
+            { time: 82.9, text: "ache." },
+            { time: 83.6, text: "Teasing" },
+            { time: 84.2, text: "through" },
+            { time: 84.8, text: "exhaustion" },
+            { time: 85.4, text: "in" },
+            { time: 85.8, text: "this" },
+            { time: 86.2, text: "beautiful," },
+            { time: 86.8, text: "heavy" },
+            { time: 87.3, text: "test," },
+            { time: 88.0, text: "Two" },
+            { time: 88.5, text: "holding" },
+            { time: 89.1, text: "each" },
+            { time: 89.6, text: "other" },
+            { time: 90.1, text: "through" },
+            { time: 90.6, text: "the" },
+            { time: 91.0, text: "worst" },
+            { time: 91.5, text: "and" },
+            { time: 91.9, text: "through" },
+            { time: 92.4, text: "the" },
+            { time: 92.8, text: "best." },
+            { time: 104.8, text: "Still" },
+            { time: 105.4, text: "reaching" },
+            { time: 106.0, text: "through" },
+            { time: 106.5, text: "the" },
+            { time: 106.9, text: "dark," },
+            { time: 107.6, text: "Poems" },
+            { time: 108.2, text: "at" },
+            { time: 108.6, text: "dawn" },
+            { time: 109.1, text: "and" },
+            { time: 109.5, text: "stolen" },
+            { time: 110.1, text: "moments" },
+            { time: 110.7, text: "that" },
+            { time: 111.1, text: "refuse" },
+            { time: 111.7, text: "to" },
+            { time: 112.1, text: "fall" },
+            { time: 112.6, text: "apart." },
+            { time: 113.3, text: "Real" },
+            { time: 113.8, text: "in" },
+            { time: 114.2, text: "every" },
+            { time: 114.7, text: "way," },
+            { time: 115.3, text: "and" },
+            { time: 115.8, text: "we" },
+            { time: 116.2, text: "choose" },
+            { time: 116.7, text: "it" },
+            { time: 117.2, text: "every" },
+            { time: 117.7, text: "day—" },
+            { time: 118.4, text: "Choosing" },
+            { time: 119.0, text: "anyway," },
+            { time: 119.6, text: "choosing" },
+            { time: 120.2, text: "anyway." },
+            { time: 123.2, text: "Loving" },
+            { time: 123.9, text: "on" },
+            { time: 124.4, text: "the" },
+            { time: 124.7, text: "edges" },
+            { time: 125.2, text: "where" },
+            { time: 125.7, text: "the" },
+            { time: 126.1, text: "timezones" },
+            { time: 126.7, text: "collide," },
+            { time: 127.4, text: "Catching" },
+            { time: 127.9, text: "when" },
+            { time: 128.4, text: "we're" },
+            { time: 128.8, text: "falling," },
+            { time: 129.3, text: "lifelines" },
+            { time: 129.9, text: "in" },
+            { time: 130.3, text: "the" },
+            { time: 130.6, text: "night." },
+            { time: 131.3, text: "Complete" },
+            { time: 131.8, text: "and" },
+            { time: 132.2, text: "still" },
+            { time: 132.7, text: "reaching," },
+            { time: 133.3, text: "holding" },
+            { time: 133.8, text: "on" },
+            { time: 134.2, text: "so" },
+            { time: 134.6, text: "tight—" },
+            { time: 135.3, text: "This" },
+            { time: 135.8, text: "is" },
+            { time: 136.2, text: "how" },
+            { time: 136.7, text: "love" },
+            { time: 137.2, text: "lives," },
+            { time: 137.8, text: "this" },
+            { time: 138.3, text: "is" },
+            { time: 138.7, text: "how" },
+            { time: 139.2, text: "love" },
+            { time: 139.7, text: "lives," },
+            { time: 140.3, text: "On" },
+            { time: 140.7, text: "both" },
+            { time: 141.2, text: "sides" },
+            { time: 141.7, text: "of" },
+            { time: 142.1, text: "the" },
+            { time: 142.5, text: "night." },
+        ];
+
+        const audioPlayer = document.getElementById('audioPlayer');
+        const lyricsDiv = document.getElementById('lyrics');
+
+        function createLyricsHTML() {
+            let html = '<span class="section-title">Verse 1</span>';
+            
+            lyrics.forEach((word, index) => {
+                html += `<span class="word" data-index="${index}">${word.text}</span> `;
+                
+                if (word.text.endsWith('.') || word.text.endsWith(',') || word.text.endsWith('?') || word.text.endsWith('—')) {
+                    html += '<br>';
+                }
+                
+                if (index === 39) html += '<span class="section-title">Chorus 1</span>';
+                if (index === 87) html += '<span class="section-title">Verse 2</span>';
+                if (index === 147) html += '<span class="section-title">Bridge</span>';
+                if (index === 171) html += '<span class="section-title">Final Chorus</span>';
+            });
+            
+            lyricsDiv.innerHTML = html;
+        }
+
+        function updateLyrics() {
+            const currentTime = audioPlayer.currentTime;
+            
+            lyrics.forEach((word, index) => {
+                const wordElement = document.querySelector(`[data-index="${index}"]`);
+                if (!wordElement) return;
+                
+                const nextWord = lyrics[index + 1];
+                const nextTime = nextWord ? nextWord.time : 270;
+                
+                if (currentTime >= word.time && currentTime < nextTime) {
+                    wordElement.classList.add('active');
+                } else {
+                    wordElement.classList.remove('active');
+                }
+            });
+        }
+
+        audioPlayer.addEventListener('timeupdate', updateLyrics);
+        createLyricsHTML();
+    </script>
+</body>
+</html>
